@@ -1,7 +1,7 @@
 const { Discord, client } = require("../index");
 const { rooms } = require("../config.json");
 const { prefix } = require("../config.json");
-const { challenges } = require("../localdata");
+const { challenges, matches } = require("../localdata");
 
 class ChessRoom
 {
@@ -74,6 +74,11 @@ class ChessRoom
                     continue roomloop;
                 }
             }
+            for (let match of matches){
+                if (channel == match.room){
+                    continue roomloop;
+                }
+            }
             return channel;
         }
         return undefined;
@@ -83,6 +88,15 @@ class ChessRoom
         for (let challenge of challenges){
             if (challenge.room == room){
                 return challenge;
+            }
+        }
+        return undefined;
+    }
+
+    static getMatchByRoom(room){
+        for (let match of matches){
+            if (match.room == room){
+                return match;
             }
         }
         return undefined;

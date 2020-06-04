@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
-const { prefix, token, rooms } = require("./config.json");
-const ChessRoom = require("./classes/chessrooms");
+const { prefix, token } = require("./config.json");
 const commands = require("./classes/commands");
+const { loadSprites } = require("./classes/chess.js");
 const client = new Discord.Client();
 require("./classes/commands");
 
@@ -13,11 +13,12 @@ module.exports = {
 client.login(token);
 
 client.once("ready", () => {
+    loadSprites();
     console.log("Ready!");
 });
 
 client.on("message", message => {
-
+    
     if (!message.content.startsWith(prefix)){
         return;
     }
